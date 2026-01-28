@@ -1,6 +1,7 @@
 import asyncio
 from desktop_notifier import DesktopNotifier, Icon
 from pathlib import Path
+from time import sleep
 
 
 
@@ -19,6 +20,7 @@ def main(title:str,message:str ,icon:str):
             message=message,
             icon=Icon(icon),
         )
+        await asyncio.sleep(4)
 
     asyncio.run(send())
 
@@ -26,3 +28,4 @@ def main(title:str,message:str ,icon:str):
 
 if __name__ == "__main__":
     main("this is tittle","this is message", alert_icon)
+    main("this is tittle","this is message", water_bottle)
