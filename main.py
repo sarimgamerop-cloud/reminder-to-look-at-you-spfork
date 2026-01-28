@@ -2,27 +2,27 @@ import asyncio
 from desktop_notifier import DesktopNotifier, Icon
 from pathlib import Path
 
-project_root = Path(__file__).parent.parent  # give the location of folder
+
+
+
+project_root = Path(__file__).parent  # give the location of folder
 
 alert_icon = project_root / "assets" / "alert.png"
 water_bottle = project_root / "assets" / "water_bottle.png"
 notifier = DesktopNotifier()
 
-
-def main() -> None:
-    # Send a simple notification
-    async def water_reminder():
+# This Func gonna send a notification based on paramaters
+def main(title:str,message:str ,icon:str):
+    async def send():
         await notifier.send(
-            title="Hello from Python!",
-            message="This is a desktop notification.",
-            icon=Icon(alert_icon),
+            title=title,
+            message=message,
+            icon=Icon(icon),
         )
 
-    asyncio.run(water_reminder())
+    asyncio.run(send())
 
+# print(project_root)
 
-# Run the async main function
-
-
-main()
-
+if __name__ == "__main__":
+    main("this is tittle","this is message", alert_icon)
