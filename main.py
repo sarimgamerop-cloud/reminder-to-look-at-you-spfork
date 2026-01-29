@@ -32,7 +32,7 @@ async def send(title: str, message: str, icon: Path):
 
 
 # print(project_root)
-print(ctime())
+# print(ctime())
 
 if __name__ == "__main__":
     asyncio.run(
