@@ -1,7 +1,8 @@
 import asyncio
 from desktop_notifier import DesktopNotifier, Icon, Button
 from pathlib import Path
-from time import sleep
+from time import sleep, ctime
+import json
 
 
 project_root = Path(__file__).parent  # give the location of folder
@@ -11,17 +12,24 @@ water_bottle = project_root / "assets" / "water_bottle.png"
 notifier = DesktopNotifier()
 
 
+def writing_log(taken: bool):
+    with open("./log/data.json", "a") as data:
+        json.dump(
+            {"Date": ctime(), "Reminder": "Drink Water", "Taken": taken}, data, indent=4
+        )
+
+
 # This Func gonna send a notification based on paramaters
 async def send(title: str, message: str, icon: Path):
     while True:
-        await asyncio.sleep(4)
+        await asyncio.sleep(3)
         await notifier.send(
             title=title,
             message=message,
             icon=Icon(icon),
             buttons=[
-                Button(title="Ok", on_pressed=print("Drinked")),
-                Button(title="skip", on_pressed=print("Skiped")),
+                Button(title="Ok", on_pressed=lambda: writing_log(True)),
+                Button(title="skip", on_pressed=lambda: writing_log(False)),
             ],
         )
 
